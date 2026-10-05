@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Search Results | Open Library</title>
+
+```
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: #f4f1ea;
+        color: #333;
+    }
+
+    header {
+       background-color: #c58fc6;
+        color: white;
+        padding: 25px;
+        text-align: center;
+    }
+
+    nav {
+        margin-top: 15px;
+    }
+
+    nav a {
+        color: rgb(247, 246, 249);
+        text-decoration: none;
+        margin: 0 10px;
+        font-weight: bold;
+    }
+
+    nav a:hover {
+        text-decoration: underline;
+    }
+
+    main {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    h1 {
+        color: white;
+    }
+
+    .intro {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .book-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+
+    .book-card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .book-card img {
+        display: block;
+        width: 150px;
+        height: 220px;
+        object-fit: cover;
+        margin: 0 auto 20px;
+        border-radius: 6px;
+    }
+
+    .no-cover {
+        width: 150px;
+        height: 220px;
+        margin: 0 auto 20px;
+        background-color: #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        border-radius: 6px;
+        color: #666;
+    }
+
+    .book-card h2 {
+        color: #3d405b;
+        font-size: 20px;
+        margin-top: 0;
+    }
+
+    .book-info {
+        margin: 8px 0;
+    }
+
+    .label {
+        font-weight: bold;
+    }
+
+    .book-link {
+        margin-top: auto;
+        padding-top: 15px;
+    }
+
+    .book-link a {
+        display: inline-block;
+        padding: 10px 14px;
+        background-color: #c58fc6;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+
+    .book-link a:hover {
+       background-color: #8fb88e;
+    }
+
+    .error {
+        color: #a00000;
+        font-weight: bold;
+    }
+
+    footer {
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+        color: #666;
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<header>
+    <h1>Open Library Search Results</h1>
+
+```
+<nav>
+    <a href="book.html">Book</a>
+    <a href="search.html">Search Results</a>
+</nav>
+```
+
+</header>
+
+<main>
+
+```
+<div class="intro">
+    <h1>Search Results</h1>
+    <p>
+        These books are results from the provided Open Library search
+        data for the search phrase "modern web."
+    </p>
+</div>
+
+<div id="book-results" class="book-grid">
+    <p>Loading search results...</p>
+</div>
+```
+
+</main>
+
+<footer>
+    <p>Open Library Book Project</p>
+</footer>
+
+<script>
+    $(document).ready(function () {
+
+        $.getJSON("openlibrary-search.json")
+            .done(function (data) {
+
+                let books = data.docs || [];
+
+                $("#book-results").empty();
+
+                if (books.length === 0) {
+                    $("#book-results").html(
+                        "<p>No book results are available.</p>"
+                    );
+                    return;
+                }
+
+                // Loop through the docs array
+                $.each(books, function (index, book) {
+
+                    let title = book.title || "Not available";
+
+                    // Authors
+                    let authors = "Not available";
+
+                    if (book.author_name && book.author_name.length > 0) {
+                        authors = book.author_name.join(", ");
+                    }
+
+                    // First publication year
+                    let firstPublishYear =
+                        book.first_publish_year || "Not available";
+
+                    // Publishers
+                    let publishers = "Not available";
+
+                    if (book.publisher && book.publisher.length > 0) {
+                        publishers = book.publisher.slice(0, 3).join(", ");
+                    }
+
+                    // Edition count
+                    let editionCount =
+                        book.edition_count || "Not available";
+
+                    // ISBN
+                    let isbn = "Not available";
+
+                    if (book.isbn && book.isbn.length > 0) {
+                        isbn = book.isbn.slice(0, 3).join(", ");
+                    }
+
+                    // Cover
+                    let coverHTML = `
+                        <div class="no-cover">
+                            Cover not available
+                        </div>
+                    `;
+
+                    if (book.cover_i) {
+
+                        coverHTML = `
+                            <img
+                                src="https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg"
+                                alt="Cover of ${title.replace(/"/g, '&quot;')}"
+                            >
+                        `;
+                    }
+
+                    // Open Library link
+                    let bookLink = "";
+
+                    if (book.key) {
+
+                        bookLink = `
+                            <div class="book-link">
+                                <a
+                                    href="https://openlibrary.org${book.key}"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                    View on Open Library
+                                </a>
+                            </div>
+                        `;
+                    }
+
+                    let bookCard = `
+                        <article class="book-card">
+
+                            ${coverHTML}
+
+                            <h2>${title}</h2>
+
+                            <p class="book-info">
+                                <span class="label">Author(s):</span>
+                                ${authors}
+                            </p>
+
+                            <p class="book-info">
+                                <span class="label">First Published:</span>
+                                ${firstPublishYear}
+                            </p>
+
+                            <p class="book-info">
+                                <span class="label">Publisher(s):</span>
+                                ${publishers}
+                            </p>
+
+                            <p class="book-info">
+                                <span class="label">Edition Count:</span>
+                                ${editionCount}
+                            </p>
+
+                            <p class="book-info">
+                                <span class="label">ISBN:</span>
+                                ${isbn}
+                            </p>
+
+                            ${bookLink}
+
+                        </article>
+                    `;
+
+                    $("#book-results").append(bookCard);
+                });
+            })
+
+            .fail(function () {
+                $("#book-results").html(
+                    '<p class="error">Unable to load the search results.</p>'
+                );
+            });
+    });
+</script>
+
+</body>
+</html>

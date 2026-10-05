@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IT 4403 | Wajiha</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Quicksand:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: #fffaf7;
+            color: #40513b;
+        }
+
+        /* ================= NAVIGATION ================= */
+
+        nav {
+            background: #536947;
+            padding: 18px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: #fff8f4;
+            font-family: 'Caveat', cursive;
+            font-size: 32px;
+            font-weight: 600;
+        }
+
+        .logo span {
+            color: #f7b1bd;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #f7a8b5;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 570px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 70px 8%;
+            background: linear-gradient(
+                135deg,
+                #fffaf6 0%,
+                #fff1ed 50%,
+                #f0f4e9 100%
+            );
+            overflow: hidden;
+        }
+
+        .hero-text {
+            max-width: 600px;
+        }
+
+        .small-title {
+            font-family: 'Caveat', cursive;
+            font-size: 42px;
+            color: #536947;
+        }
+
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 68px;
+            line-height: 1.05;
+            color: #40513b;
+            margin: 5px 0 20px;
+        }
+
+        .hero p {
+            font-family: 'Caveat', cursive;
+            font-size: 27px;
+            color: #68745f;
+            margin-bottom: 30px;
+        }
+
+        .hero p span {
+            color: #e98598;
+        }
+
+        .button {
+            display: inline-block;
+            background: #e9869a;
+            color: white;
+            text-decoration: none;
+            padding: 14px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            transition: 0.3s;
+            box-shadow: 0 6px 15px rgba(190, 100, 120, 0.2);
+        }
+
+        .button:hover {
+            transform: translateY(-3px);
+            background: #d96f85;
+        }
+
+
+        /* ================= GENERAL SECTIONS ================= */
+
+        section {
+            padding: 70px 7%;
+        }
+
+        .section-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 45px;
+            color: #40513b;
+            margin-bottom: 30px;
+        }
+
+        .section-title span {
+            color: #e98598;
+        }
+
+        /* ================= ABOUT ================= */
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 35px;
+        }
+
+        .about-card,
+        .quick-card {
+            border-radius: 25px;
+            padding: 40px;
+            background: white;
+            border: 1px solid #eadfd9;
+            box-shadow: 0 10px 30px rgba(75, 82, 58, 0.08);
+        }
+
+        .about-card {
+            background: #fffdfb;
+        }
+
+        .about-card h2,
+        .quick-card h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 35px;
+            margin-bottom: 20px;
+            color: #40513b;
+        }
+
+        .about-card p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #687066;
+        }
+
+        .quick-card {
+            background: #fdecef;
+        }
+
+        .quick-links {
+            list-style: none;
+        }
+
+        .quick-links li {
+            margin: 18px 0;
+        }
+
+        .quick-links a {
+            color: #536947;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .quick-links a:hover {
+            color: #e98598;
+        }
+
+        /* ================= COURSEWORK ================= */
+
+        #coursework {
+            background: #edf2e8;
+        }
+
+        .coursework-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(72, 83, 57, 0.1);
+            transition: 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .course-image {
+            height: 130px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 55px;
+            background: linear-gradient(135deg, #f7b0bd, #f9d8dc);
+        }
+
+        .course-card:nth-child(2) .course-image {
+            background: linear-gradient(135deg, #a9bd8f, #d7e1c8);
+        }
+
+        .course-card:nth-child(3) .course-image {
+            background: linear-gradient(135deg, #f3c1ca, #e9a0b1);
+        }
+
+        .course-content {
+            padding: 25px;
+        }
+
+        .course-content h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 28px;
+            color: #40513b;
+            margin-bottom: 10px;
+        }
+
+        .course-content p {
+            color: #70776d;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        /* ================= MILESTONES ================= */
+
+        #milestones {
+            background: #fffdfb;
+            text-align: center;
+        }
+
+        .milestone-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            justify-content: center;
+        }
+
+        .button.disabled {
+            background: #c9c9c9;
+            box-shadow: none;
+            pointer-events: none;
+        }
+        /* ================= CONTACT ================= */
+
+        .contact {
+            text-align: center;
+            background: #fff8f6;
+        }
+
+        .contact p {
+            font-size: 18px;
+            margin-bottom: 25px;
+            color: #687066;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            background: #536947;
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        footer h3 {
+            font-family: 'Caveat', cursive;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        footer p {
+            opacity: 0.9;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 850px) {
+
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 50px;
+            }
+
+            .hero h1 {
+                font-size: 50px;
+            }
+
+            .drink-area {
+                transform: scale(0.8);
+            }
+
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+
+            .coursework-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+
+    <nav>
+        <div class="logo">
+            🍵 IT 4403 <span>♡</span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#coursework">Coursework</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-text">
+
+            <div class="small-title">
+                Welcome to my
+            </div>
+
+            <h1>
+                IT 4403<br>
+                Website
+            </h1>
+
+            
+
+            <a href="#coursework" class="button">
+                Explore →
+            </a>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- ABOUT -->
+
+    <section id="about">
+
+        <div class="about-container">
+
+            <div class="about-card">
+
+                <h2>
+                    🌿 About Me
+                </h2>
+
+                <p>
+                    Hi! My name is Wajiha. I am an IT student with an
+                    interest in technology, creativity, and problem solving.
+                    This website will be used to showcase my work for
+                    IT 4403 throughout the semester.
+                </p>
+
+                <br>
+
+                <p>
+                    Here you will be able to find my exercises, labs,
+                    projects, and other coursework as I continue building
+                    my skills in information technology.
+                </p>
+
+            </div>
+
+
+            <div class="quick-card">
+
+                <h2>
+                    Quick Links ♡
+                </h2>
+
+                <ul class="quick-links">
+
+                    <li>
+                        🏠 <a href="#home">Home</a>
+                    </li>
+
+                    <li>
+                        👩🏻‍💻 <a href="#about">About Me</a>
+                    </li>
+
+                    <li>
+                        📁 <a href="#coursework">Coursework</a>
+                    </li>
+
+                    <li>
+                        💌 <a href="#contact">Contact</a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- COURSEWORK -->
+
+    <section id="coursework">
+
+        <h2 class="section-title">
+            My Coursework <span>♡</span>
+        </h2>
+
+        <div class="coursework-grid">
+
+
+            <!-- EXERCISES -->
+
+            <div class="course-card">
+
+                <div class="course-image">
+                    💻
+                </div>
+
+                <div class="course-content">
+
+                    <h3>
+                        Milestones
+                    </h3>
+
+                    <p>
+                        My Open Library book search project milestones are listed here.
+                    </p>
+
+                    <a href="#milestones" class="button">
+                        View Milestones →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- LABS -->
+
+            <div class="course-card">
+
+                <div class="course-image">
+                    🧪
+                </div>
+
+                <div class="course-content">
+
+                    <h3>
+                        Labs
+                    </h3>
+
+                    <p>
+                        This section will contain my IT 4403
+                        laboratory assignments and work.
+                    </p>
+
+                    <a href="#" class="button">
+                        View Labs →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROJECTS -->
+
+            <div class="course-card">
+
+                <div class="course-image">
+                    📂
+                </div>
+
+                <div class="course-content">
+
+                    <h3>
+                        Projects
+                    </h3>
+
+                    <p>
+                        My semester projects and final project
+                        will be organized in this section.
+                    </p>
+
+                    <a href="#" class="button">
+                        View Projects →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- INDIVIDUAL PROJECT MILESTONES -->
+<section id="milestones">
+    <h2 class="section-title">Individual Project Milestone <span>♡</span></h2>
+
+    <div class="milestone-buttons">
+        <a href="openlibrary_milestone1/book.html" class="button">Milestone 1: Single Book</a>
+        <a href="openlibrary_milestone1/search.html" class="button">Milestone 1: Search Results</a>
+        <a href="#" class="button disabled" aria-disabled="true">Milestone 2 (coming soon)</a>
+        <a href="#" class="button disabled" aria-disabled="true">Milestone 3 (coming soon)</a>
+        <a href="#" class="button disabled" aria-disabled="true">Milestone 4 (coming soon)</a>
+    </div>
+</section>
+
+
+    <!-- CONTACT -->
+
+    <section class="contact" id="contact">
+
+        <h2 class="section-title">
+            Let's Connect <span>♡</span>
+        </h2>
+
+        <p>
+            Thanks for visiting my IT 4403 website!
+        </p>
+
+        <a href="mailto:wajihaparveen1@gmail.com" class="button">
+            Send Me an Email 💌
+        </a>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <h3>
+            IT 4403 | Wajiha ♡
+        </h3>
+
+        <p>
+            Strawberry Matcha • Learning • Growing • Creating
+        </p>
+
+    </footer>
+
+</body>
+</html>

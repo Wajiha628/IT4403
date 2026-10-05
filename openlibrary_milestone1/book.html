@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Information | Open Library</title>
+
+```
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: #f4f1ea;
+        color: #333;
+    }
+
+    header {
+        background-color: #c58fc6;
+        color: rgb(131, 167, 123);
+        padding: 25px;
+        text-align: center;
+    }
+
+    nav {
+        margin-top: 15px;
+    }
+
+    nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+        font-weight: bold;
+    }
+
+    nav a:hover {
+        text-decoration: underline;
+    }
+
+    main {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .book-container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .book-content {
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+
+    .cover-section {
+        flex: 0 0 250px;
+        text-align: center;
+    }
+
+    .cover-section img {
+        max-width: 220px;
+        max-height: 330px;
+        border-radius: 8px;
+    }
+
+    .info-section {
+        flex: 1;
+        min-width: 300px;
+    }
+
+    h1 {
+        margin-top: 0;
+        color: white;
+    }
+
+    h2 {
+        color: #3d405b;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 8px;
+    }
+
+    .info-item {
+        margin: 12px 0;
+    }
+
+    .label {
+        font-weight: bold;
+    }
+
+    .metadata {
+        margin-top: 30px;
+    }
+
+    .metadata ul {
+        padding-left: 25px;
+    }
+
+    .metadata li {
+        margin-bottom: 8px;
+    }
+
+    .open-library-link {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 18px;
+        background-color: #c58fc6;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+    }
+
+    .open-library-link:hover {
+        background-color: #8fb88e;
+    }
+
+    .error {
+        color: #a00000;
+        font-weight: bold;
+    }
+
+    footer {
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+        color: #666;
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<header>
+    <h1>Open Library Book Information</h1>
+
+```
+<nav>
+    <a href="book.html">Book</a>
+    <a href="search.html">Search Results</a>
+</nav>
+```
+
+</header>
+
+<main>
+    <div class="book-container" id="book-container">
+        <p>Loading book information...</p>
+    </div>
+</main>
+
+<footer>
+    <p>Open Library Book Project</p>
+</footer>
+
+<script>
+    $(document).ready(function () {
+
+        $.getJSON("openlibrary-book.json")
+            .done(function (book) {
+
+                let title = book.title || "Not available";
+                let publisher = "Not available";
+                let publicationDate = book.publish_date || "Not available";
+                let pageCount = book.number_of_pages || "Not available";
+                let isbn10 = "Not available";
+                let isbn13 = "Not available";
+                let authors = "Not available";
+                let firstSentence = "Not available";
+
+                // Publishers
+                if (book.publishers && book.publishers.length > 0) {
+                    publisher = book.publishers.join(", ");
+                }
+
+                // ISBN-10
+                if (book.isbn_10 && book.isbn_10.length > 0) {
+                    isbn10 = book.isbn_10.join(", ");
+                }
+
+                // ISBN-13
+                if (book.isbn_13 && book.isbn_13.length > 0) {
+                    isbn13 = book.isbn_13.join(", ");
+                }
+
+                // Authors
+                if (book.authors && book.authors.length > 0) {
+                    let authorNames = [];
+
+                    $.each(book.authors, function (index, author) {
+                        if (author.name) {
+                            authorNames.push(author.name);
+                        } else if (author.key) {
+                            authorNames.push(author.key);
+                        }
+                    });
+
+                    if (authorNames.length > 0) {
+                        authors = authorNames.join(", ");
+                    }
+                }
+
+                // First sentence
+                if (book.first_sentence) {
+                    if (typeof book.first_sentence === "string") {
+                        firstSentence = book.first_sentence;
+                    } else if (book.first_sentence.value) {
+                        firstSentence = book.first_sentence.value;
+                    }
+                }
+
+                // Cover
+                let coverHTML = "<p>Cover image not available.</p>";
+
+                if (book.covers && book.covers.length > 0) {
+                    let coverID = book.covers[0];
+
+                    coverHTML =
+                        '<img src="https://covers.openlibrary.org/b/id/' +
+                        coverID +
+                        '-L.jpg" alt="Cover of ' +
+                        title.replace(/"/g, '&quot;') +
+                        '">';
+                }
+
+                // Open Library link
+                let openLibraryLink = "#";
+
+                if (book.key) {
+                    openLibraryLink = "https://openlibrary.org" + book.key;
+                }
+
+                let html = `
+                    <div class="book-content">
+
+                        <div class="cover-section">
+                            ${coverHTML}
+                        </div>
+
+                        <div class="info-section">
+                            <h1>${title}</h1>
+
+                            <div class="info-item">
+                                <span class="label">Author:</span>
+                                ${authors}
+                            </div>
+
+                            <div class="info-item">
+                                <span class="label">Publisher:</span>
+                                ${publisher}
+                            </div>
+
+                            <div class="info-item">
+                                <span class="label">Publication Date:</span>
+                                ${publicationDate}
+                            </div>
+
+                            <div class="info-item">
+                                <span class="label">Page Count:</span>
+                                ${pageCount}
+                            </div>
+
+                            <div class="info-item">
+                                <span class="label">ISBN-10:</span>
+                                ${isbn10}
+                            </div>
+
+                            <div class="info-item">
+                                <span class="label">ISBN-13:</span>
+                                ${isbn13}
+                            </div>
+
+                            <div class="metadata">
+                                <h2>First Sentence</h2>
+                                <p>${firstSentence}</p>
+                            </div>
+
+                            ${
+                                openLibraryLink !== "#"
+                                ? `<a class="open-library-link"
+                                      href="${openLibraryLink}"
+                                      target="_blank"
+                                      rel="noopener noreferrer">
+                                      View on Open Library
+                                   </a>`
+                                : ""
+                            }
+
+                        </div>
+                    </div>
+                `;
+
+                $("#book-container").html(html);
+            })
+
+            .fail(function () {
+                $("#book-container").html(
+                    '<p class="error">Unable to load the book information.</p>'
+                );
+            });
+    });
+</script>
+
+</body>
+</html>
