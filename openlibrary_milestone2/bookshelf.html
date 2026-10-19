@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookshelf | Wajiha's Open Library</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=DM+Serif+Display&family=Quicksand:wght@400;500;600;700&display=swap');
+
+        :root {
+            --strawberry: #e99aa9;
+            --strawberry-dark: #b94f6b;
+            --pink-light: #fff0f3;
+            --matcha: #788b58;
+            --matcha-dark: #4d6038;
+            --matcha-light: #eaf0dc;
+            --cream: #fffaf5;
+            --text: #493d3c;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Quicksand', sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, #f9dce3, transparent 35%),
+                linear-gradient(135deg, var(--cream), var(--matcha-light));
+        }
+
+        header {
+            background: rgba(255, 250, 245, 0.95);
+            padding: 22px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            border-bottom: 3px solid #f3d0d7;
+        }
+
+        header h1 {
+            margin: 0;
+            color: var(--strawberry-dark);
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.2rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 22px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--matcha-dark);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            color: var(--strawberry-dark);
+        }
+
+        main {
+            width: min(1100px, 90%);
+            margin: 45px auto;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .intro h2 {
+            margin-bottom: 8px;
+            color: var(--strawberry-dark);
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.8rem;
+        }
+
+        .subtitle {
+            color: var(--matcha-dark);
+            font-family: 'Caveat', cursive;
+            font-size: 1.6rem;
+        }
+
+        .bookshelf-panel {
+            padding: 30px;
+            background: rgba(255, 250, 245, 0.94);
+            border: 1px solid #efd5d7;
+            border-radius: 28px;
+            box-shadow: 0 12px 35px rgba(110, 91, 75, 0.12);
+        }
+
+        #bookshelfStatus {
+            text-align: center;
+            color: var(--matcha-dark);
+            font-weight: 700;
+        }
+
+        .bookshelf-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 24px;
+        }
+
+        .book-card {
+            padding: 20px;
+            text-align: center;
+            background: white;
+            border: 1px solid #f1dce0;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(110, 91, 75, 0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 22px rgba(110, 91, 75, 0.14);
+        }
+
+        .book-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }
+
+        .book-card h3 {
+            color: var(--strawberry-dark);
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.3rem;
+        }
+
+        .book-link {
+            display: inline-block;
+            padding: 10px 18px;
+            color: white;
+            background: var(--matcha);
+            border-radius: 25px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .book-link:hover {
+            background: var(--matcha-dark);
+        }
+
+        footer {
+            padding: 25px;
+            text-align: center;
+            color: var(--matcha-dark);
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .intro h2 {
+                font-size: 2.2rem;
+            }
+
+            .bookshelf-panel {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Open Library</h1>
+
+        <nav>
+            <a href="search.html">Home</a>
+            <a href="bookshelf.html">My Bookshelf</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="intro">
+            <h2>My Bookshelf</h2>
+            <p class="subtitle">A little collection of stories to love 🍓</p>
+            <p>Explore the books I've picked for my collection.</p>
+        </section>
+
+        <section class="bookshelf-panel">
+            <p id="bookshelfStatus" aria-live="polite">
+                Loading your bookshelf...
+            </p>
+
+            <div id="bookshelfBooks" class="bookshelf-grid">
+                <!-- Book cards will be added here by bookshelf.js -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>IT 4403 | Open Library Project</p>
+    </footer>
+
+    <script src="bookshelf.js"></script>
+</body>
+</html>

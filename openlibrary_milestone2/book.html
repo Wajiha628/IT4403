@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Book Details | Open Library</title>
+
+    <link rel="stylesheet" href="style.css">
+    
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=DM+Serif+Display&family=Quicksand:wght@400;500;600;700&display=swap');
+
+    :root {
+        --strawberry: #e99aa9;
+        --strawberry-dark: #b94f6b;
+        --pink-light: #fff0f3;
+        --matcha: #788b58;
+        --matcha-dark: #4d6038;
+        --matcha-light: #eaf0dc;
+        --cream: #fffaf5;
+        --text: #493d3c;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Quicksand', sans-serif;
+        color: var(--text);
+        background:
+            radial-gradient(circle at top left, #f9dce3, transparent 35%),
+            linear-gradient(135deg, var(--cream), var(--matcha-light));
+        min-height: 100vh;
+    }
+
+    header {
+        background: rgba(255, 250, 245, 0.95);
+        padding: 22px 8%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        border-bottom: 3px solid #f3d0d7;
+    }
+
+    header h1 {
+        font-family: 'DM Serif Display', serif;
+        color: var(--strawberry-dark);
+        font-size: 2.2rem;
+        margin: 0;
+    }
+
+    nav {
+        display: flex;
+        gap: 22px;
+        flex-wrap: wrap;
+    }
+
+    nav a {
+        text-decoration: none;
+        color: var(--matcha-dark);
+        font-weight: 700;
+        transition: color 0.2s;
+    }
+
+    nav a:hover {
+        color: var(--strawberry-dark);
+    }
+
+    main {
+        width: min(1000px, 90%);
+        margin: 45px auto;
+    }
+
+    .book-details-section {
+        background: rgba(255, 250, 245, 0.94);
+        padding: 35px;
+        border: 1px solid #efd5d7;
+        border-radius: 28px;
+        box-shadow: 0 12px 35px rgba(110, 91, 75, 0.12);
+    }
+
+    .back-link {
+        color: var(--matcha-dark);
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .back-link:hover {
+        color: var(--strawberry-dark);
+    }
+
+    .book-details-section > h2 {
+        font-family: 'DM Serif Display', serif;
+        font-size: 2.5rem;
+        color: var(--matcha-dark);
+        margin: 20px 0;
+    }
+
+    #bookStatus {
+        color: var(--strawberry-dark);
+        font-weight: 700;
+    }
+
+    .book-details {
+        display: grid;
+        grid-template-columns: minmax(160px, 260px) 1fr;
+        gap: 18px 35px;
+        align-items: start;
+        margin-top: 25px;
+    }
+
+    .book-details .book-cover {
+        grid-column: 1;
+        grid-row: 1 / span 5;
+        width: 100%;
+        max-width: 260px;
+        min-height: 240px;
+        object-fit: contain;
+        background: var(--pink-light);
+        border: 6px solid white;
+        border-radius: 18px;
+        box-shadow: 0 8px 20px rgba(185, 79, 107, 0.15);
+    }
+
+    .book-details .no-cover {
+        padding: 20px;
+        color: var(--matcha-dark);
+    }
+
+    .book-details h2 {
+        font-family: 'DM Serif Display', serif;
+        font-size: 2.3rem;
+        color: var(--strawberry-dark);
+        margin: 0;
+    }
+
+    .book-details h3 {
+        font-family: 'DM Serif Display', serif;
+        color: var(--matcha-dark);
+        font-size: 1.4rem;
+        margin: 12px 0 0;
+    }
+
+    .book-details p,
+    .book-details li {
+        line-height: 1.8;
+    }
+
+    .book-details ul {
+        padding-left: 22px;
+    }
+
+    .book-details li::marker {
+        color: var(--strawberry-dark);
+    }
+
+    .button {
+        display: inline-block;
+        width: fit-content;
+        background: var(--matcha);
+        color: white;
+        padding: 12px 22px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 700;
+        border: none;
+        transition: background 0.2s, transform 0.2s;
+    }
+
+    .button:hover {
+        background: var(--matcha-dark);
+        transform: translateY(-2px);
+    }
+
+    footer {
+        text-align: center;
+        padding: 25px;
+        color: var(--matcha-dark);
+        font-size: 0.9rem;
+    }
+
+    footer p {
+        margin: 0;
+    }
+
+    @media (max-width: 650px) {
+        header {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .book-details-section {
+            padding: 22px;
+        }
+
+        .book-details-section > h2 {
+            font-size: 2rem;
+        }
+
+        .book-details {
+            grid-template-columns: 1fr;
+        }
+
+        .book-details .book-cover {
+            grid-column: 1;
+            grid-row: auto;
+            width: 200px;
+            justify-self: center;
+        }
+    }
+</style>
+
+</head>
+<body>
+
+    <header>
+        <h1>Open Library</h1>
+
+        <nav>
+            <a href="search.html">Home</a>
+            <a href="bookshelf.html">My Bookshelf</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="book-details-section">
+            <a href="search.html" class="back-link">
+                &larr; Back to Search
+            </a>
+
+            <h2>Book Details</h2>
+
+            <p id="bookStatus" aria-live="polite">
+                Loading book information...
+            </p>
+
+            <div id="bookDetails" class="book-details">
+                <!-- Book information will appear here -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>IT 4403 | Open Library Project</p>
+    </footer>
+
+    <script src="book.js"></script>
+</body>
+</html>
