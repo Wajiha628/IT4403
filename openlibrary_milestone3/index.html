@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Library | Milestone 3</title>
+
+    <!-- Strawberry Matcha stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- jQuery for AJAX requests -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <p class="eyebrow">YOUR LITTLE CORNER OF BOOKS</p>
+            <h1>Open Library</h1>
+            <p class="subtitle">Find a story you'll fall in love with.</p>
+
+            <nav class="main-nav" aria-label="Main navigation">
+                <a href="#search-section">Search Books</a>
+                <a href="#collection-section">Book Collection</a>
+                <a href="#details-section">Book Details</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="page-container">
+
+        <!-- Book Search -->
+        <section id="search-section" class="section-card">
+            <div class="section-heading">
+                <p class="eyebrow">FIND YOUR NEXT READ</p>
+                <h2>Search for Books</h2>
+                <p>Search by book title, author, or keywords.</p>
+            </div>
+
+            <form id="searchForm" class="search-form">
+                <label for="searchInput">What would you like to read?</label>
+
+                <div class="search-controls">
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Try Harry Potter..."
+                        autocomplete="off"
+                    >
+                    <button type="submit" id="searchButton">Search</button>
+                </div>
+            </form>
+
+            <p id="searchStatus" class="status-message" role="status"
+               aria-live="polite"></p>
+
+            <div id="searchResults" class="book-grid"></div>
+
+            <div id="pagination" class="pagination">
+                <button type="button" id="previousButton" disabled>
+                    Previous
+                </button>
+
+                <span id="pageInfo" aria-live="polite">Page 0 of 0</span>
+
+                <button type="button" id="nextButton" disabled>
+                    Next
+                </button>
+            </div>
+        </section>
+
+        <!-- Selected Book Details -->
+        <section id="details-section" class="section-card">
+            <div class="section-heading">
+                <p class="eyebrow">GET TO KNOW THE BOOK</p>
+                <h2>Book Details</h2>
+                <p>Select a book from the search results or collection
+                   to learn more about it.</p>
+            </div>
+
+            <div id="bookDetails" class="details-content">
+                <p class="empty-message">
+                    Your selected book's details will appear here.
+                </p>
+            </div>
+        </section>
+
+        <!-- Predefined Book Collection -->
+        <section id="collection-section" class="section-card">
+            <div class="section-heading">
+                <p class="eyebrow">A LITTLE BOOKISH INSPIRATION</p>
+                <h2>Fantasy Shelf</h2>
+                <p>Explore a collection of fantasy books picked for you.</p>
+            </div>
+
+            <p id="collectionStatus" class="status-message"
+               role="status" aria-live="polite">
+                Loading fantasy books...
+            </p>
+
+            <div id="collectionResults" class="book-grid"></div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <p>Made with love, books, and a little strawberry matcha.</p>
+        <p>IT 4403 · Individual Project Milestone 3</p>
+    </footer>
+</body>
+</html>

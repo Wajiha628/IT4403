@@ -1,0 +1,440 @@
+
+/* Color palette */
+:root {
+    --cream: #fffaf7;
+    --soft-pink: #f8e1e7;
+    --pink: #d995aa;
+    --dark-pink: #a95875;
+    --sage: #536947;
+    --light-sage: #e8eddf;
+    --dark-green: #34452e;
+    --text: #443a3c;
+    --muted: #807477;
+    --white: #ffffff;
+    --border: #eee0df;
+    --shadow: 0 8px 25px rgba(91, 65, 71, 0.08);
+}
+
+/* Basic page setup */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background-color: var(--cream);
+    color: var(--text);
+    font-family: "Quicksand", Arial, sans-serif;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+    font-family: "DM Serif Display", Georgia, serif;
+    font-weight: normal;
+    line-height: 1.2;
+}
+
+a {
+    color: var(--dark-pink);
+}
+
+button,
+input {
+    font: inherit;
+}
+
+/* Header */
+.site-header {
+    background: linear-gradient(135deg, #f8e1e7, #fff2ee);
+    padding: 55px 20px 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.header-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.site-header h1 {
+    margin: 8px 0;
+    color: var(--sage);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+}
+
+.subtitle {
+    margin: 0;
+    color: var(--muted);
+    font-size: 1.05rem;
+}
+
+.eyebrow {
+    margin: 0 0 8px;
+    color: var(--dark-pink);
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/* Navigation */
+.main-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.main-nav a {
+    padding: 9px 18px;
+    border: 1px solid rgba(83, 105, 71, 0.25);
+    border-radius: 30px;
+    color: var(--sage);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.main-nav a:hover {
+    background-color: var(--sage);
+    color: var(--white);
+}
+
+/* Main content */
+.page-container {
+    width: min(1100px, 92%);
+    margin: 35px auto;
+}
+
+.section-card {
+    margin-bottom: 30px;
+    padding: 32px;
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+    scroll-margin-top: 20px;
+}
+
+.section-heading {
+    margin-bottom: 25px;
+}
+
+.section-heading h2 {
+    margin: 5px 0 10px;
+    color: var(--sage);
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+}
+
+.section-heading > p:last-child {
+    margin-bottom: 0;
+    color: var(--muted);
+}
+
+/* Search form */
+.search-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.search-controls {
+    display: flex;
+    gap: 12px;
+}
+
+.search-controls input {
+    flex: 1;
+    min-width: 0;
+    padding: 13px 16px;
+    border: 1px solid #ddcfce;
+    border-radius: 12px;
+    background-color: var(--cream);
+    color: var(--text);
+    outline: none;
+}
+
+.search-controls input:focus {
+    border-color: var(--pink);
+    box-shadow: 0 0 0 3px rgba(217, 149, 170, 0.18);
+}
+
+/* Buttons */
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 12px;
+    background-color: var(--sage);
+    color: var(--white);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+button:hover:not(:disabled) {
+    background-color: var(--dark-green);
+    transform: translateY(-1px);
+}
+
+button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+/* Status and feedback messages */
+.status-message {
+    min-height: 1.5em;
+    margin: 18px 0;
+    color: var(--dark-pink);
+    font-size: 0.95rem;
+}
+
+.empty-message {
+    padding: 20px;
+    border-radius: 12px;
+    background-color: var(--cream);
+    color: var(--muted);
+    text-align: center;
+}
+
+.error-message {
+    color: #a12d3c;
+}
+
+.success-message {
+    color: var(--sage);
+}
+
+/* Book grids and cards */
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+    gap: 20px;
+}
+
+.book-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 0;
+    padding: 15px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background-color: var(--cream);
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.book-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+}
+
+.book-card button {
+    width: 100%;
+    margin-top: 12px;
+    padding: 9px 12px;
+    font-size: 0.85rem;
+}
+
+.book-cover {
+    display: block;
+    width: 100%;
+    max-width: 125px;
+    height: 180px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    background-color: var(--soft-pink);
+    object-fit: contain;
+}
+
+.book-cover-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 125px;
+    height: 180px;
+    margin-bottom: 12px;
+    padding: 12px;
+    border-radius: 6px;
+    background-color: var(--light-sage);
+    color: var(--sage);
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+.book-title {
+    margin: 0;
+    color: var(--text);
+    font-size: 1rem;
+    overflow-wrap: anywhere;
+}
+
+/* Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 28px;
+}
+
+#pageInfo {
+    color: var(--sage);
+    font-weight: bold;
+}
+
+/* Selected-book details */
+.details-content {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 35px;
+    align-items: start;
+    width: 100%;
+}
+
+.details-content > div {
+    min-width: 0;
+    width: 100%;
+}
+
+.details-content h3 {
+    margin-top: 0;
+    color: var(--sage);
+    font-size: 1.8rem;
+}
+
+.details-content p {
+    width: 100%;
+    line-height: 1.8;
+    overflow-wrap: break-word;
+}
+.details-content .book-cover {
+    max-width: 200px;
+    height: 280px;
+}
+
+.details-content .book-cover-placeholder {
+    max-width: 200px;
+    height: 280px;
+}
+
+.details-content h3 {
+    margin-top: 0;
+    color: var(--sage);
+    font-size: 1.8rem;
+    overflow-wrap: anywhere;
+}
+
+.details-content h4 {
+    margin-bottom: 5px;
+    color: var(--dark-green);
+}
+
+.details-content p {
+    overflow-wrap: anywhere;
+}
+
+.details-content ul {
+    padding-left: 22px;
+}
+
+.open-library-link {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    background-color: var(--soft-pink);
+    color: var(--dark-pink);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.open-library-link:hover {
+    background-color: var(--light-sage);
+    color: var(--dark-green);
+}
+
+/* Footer */
+.site-footer {
+    padding: 25px 20px;
+    background-color: var(--light-sage);
+    color: var(--sage);
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.site-footer p {
+    margin: 5px;
+}
+
+/* Keyboard accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+    outline: 3px solid var(--pink);
+    outline-offset: 3px;
+}
+
+/* Responsive layout */
+@media (max-width: 650px) {
+    .details-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .details-content .book-cover,
+    .details-content .book-cover-placeholder {
+        margin: 0 auto;
+    }
+
+    .details-content > div {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .details-content p {
+        line-height: 1.7;
+        overflow-wrap: break-word;
+    }
+
+    .book-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.details-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 25px;
+    width: 100%;
+}
+
+.details-content > img,
+.details-content > .book-cover-placeholder {
+    flex: 0 0 180px;
+}
+
+.details-content > div {
+    flex: 1 1 300px;
+    min-width: 250px;
+    width: auto;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+.details-content h3,
+.details-content p {
+    word-break: normal;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
