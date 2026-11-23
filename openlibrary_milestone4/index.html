@@ -1,1 +1,291 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Library | Milestone 4</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Mustache.js -->
+    <script src="https://unpkg.com/mustache@4.2.0/mustache.min.js"></script>
+
+    <!-- Application JavaScript -->
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="header-content">
+            <div class="brand">
+                <span class="brand-icon">🌷</span>
+                <div>
+                    <p class="eyebrow">YOUR LITTLE CORNER OF BOOKS</p>
+                    <h1>Open Library</h1>
+                </div>
+            </div>
+
+            <p class="header-description">
+                Find a story you'll fall in love with.
+            </p>
+        </div>
+
+        <nav class="main-nav">
+            <button class="nav-button active" data-section="search-section">
+                Search Books
+            </button>
+            <button class="nav-button" data-section="collection-section">
+                My Fantasy Shelf
+            </button>
+            <button class="nav-button" data-section="details-section">
+                Book Details
+            </button>
+        </nav>
+    </header>
+
+    <main class="main-container">
+
+        <!-- SEARCH SECTION -->
+        <section id="search-section" class="page-section active-section">
+
+            <div class="section-heading">
+                <p class="eyebrow">DISCOVER SOMETHING NEW</p>
+                <h2>Find Your Next Favorite Book</h2>
+                <p>Search millions of books and discover your next adventure.</p>
+            </div>
+
+            <form id="search-form" class="search-form">
+                <input
+                    type="text"
+                    id="search-input"
+                    placeholder="Search by book title, author, or subject..."
+                    aria-label="Search books"
+                    required
+                >
+                <button type="submit" class="primary-button">
+                    Search
+                </button>
+            </form>
+
+            <p id="search-status" class="status-message" aria-live="polite">
+                Start searching to discover books!
+            </p>
+
+            <div class="results-toolbar">
+                <div>
+                    <h3>Search Results</h3>
+                    <p id="results-count" class="small-text"></p>
+                </div>
+
+                <div class="view-controls">
+                    <span>View:</span>
+                    <button class="view-button active" data-view="grid" data-target="search">
+                        ▦ Grid View
+                    </button>
+                    <button class="view-button" data-view="list" data-target="search">
+                        ☰ List View
+                    </button>
+                </div>
+            </div>
+
+            <div id="search-results" class="book-container grid-view">
+                <!-- Search results rendered with Mustache -->
+            </div>
+
+            <div id="pagination" class="pagination hidden">
+                <button id="previous-button" class="secondary-button">
+                    ← Previous
+                </button>
+
+                <span id="page-indicator">Page 1 of 1</span>
+
+                <button id="next-button" class="secondary-button">
+                    Next →
+                </button>
+            </div>
+
+        </section>
+
+
+        <!-- FANTASY COLLECTION SECTION -->
+        <section id="collection-section" class="page-section">
+
+            <div class="section-heading">
+                <p class="eyebrow">A LITTLE MAGIC FOR YOUR BOOKSHELF</p>
+                <h2>My Fantasy Shelf ✨</h2>
+                <p>Explore stories filled with magic, adventure, and imagination.</p>
+            </div>
+
+            <div class="results-toolbar">
+                <div>
+                    <h3>Fantasy Books</h3>
+                    <p id="collection-count" class="small-text"></p>
+                </div>
+
+                <div class="view-controls">
+                    <span>View:</span>
+                    <button class="view-button active" data-view="grid" data-target="collection">
+                        ▦ Grid View
+                    </button>
+                    <button class="view-button" data-view="list" data-target="collection">
+                        ☰ List View
+                    </button>
+                </div>
+            </div>
+
+            <p id="collection-status" class="status-message" aria-live="polite">
+                Loading your Fantasy Shelf...
+            </p>
+
+            <div id="collection-results" class="book-container grid-view">
+                <!-- Collection books rendered with Mustache -->
+            </div>
+
+        </section>
+
+
+        <!-- BOOK DETAILS SECTION -->
+        <section id="details-section" class="page-section">
+
+            <div class="section-heading">
+                <p class="eyebrow">GET TO KNOW YOUR NEXT READ</p>
+                <h2>Book Details</h2>
+                <p>Everything you need to know about your selected book.</p>
+            </div>
+
+            <div id="book-details" class="details-container">
+                <div class="empty-details">
+                    <span>📖</span>
+                    <h3>No Book Selected Yet</h3>
+                    <p>
+                        Select a book from Search Results or My Fantasy Shelf
+                        to see its details here.
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="site-footer">
+        <p>Made with ♡ and a love for reading.</p>
+        <p>Open Library API | IT 4403 | Milestone 4</p>
+    </footer>
+
+
+    <!-- MUSTACHE TEMPLATE: BOOK CARDS -->
+    <script id="book-template" type="x-tmpl-mustache">
+        {{#books}}
+        <article class="book-card">
+
+            <div class="book-cover">
+                <img
+                    src="{{coverUrl}}"
+                    alt="Cover of {{title}}"
+                    loading="lazy"
+                    onerror="this.onerror=null;this.src='https://placehold.co/180x260/f8e1e7/536947?text=No+Cover';"
+                >
+            </div>
+
+            <div class="book-info">
+                <h3>{{title}}</h3>
+
+                <p class="book-author">{{author}}</p>
+
+                <p class="book-year">
+                    {{#year}}Published: {{year}}{{/year}}
+                    {{^year}}Publication year unavailable{{/year}}
+                </p>
+
+                <button
+                    class="details-button"
+                    data-work-id="{{workId}}"
+                    data-title="{{title}}"
+                >
+                    View Details
+                </button>
+            </div>
+
+        </article>
+        {{/books}}
+    </script>
+
+
+    <!-- MUSTACHE TEMPLATE: BOOK DETAILS -->
+    <script id="details-template" type="x-tmpl-mustache">
+        <article class="selected-book">
+
+            <div class="details-cover">
+                <img
+                    src="{{coverUrl}}"
+                    alt="Cover of {{title}}"
+                    onerror="this.onerror=null;this.src='https://placehold.co/240x350/f8e1e7/536947?text=No+Cover';"
+                >
+            </div>
+
+            <div class="details-information">
+                <p class="eyebrow">YOUR SELECTED BOOK</p>
+
+                <h2>{{title}}</h2>
+
+                <p class="details-author">
+                    By {{author}}
+                </p>
+
+                <div class="metadata">
+                    <p><strong>Open Library Work ID:</strong> {{workId}}</p>
+
+                    {{#firstPublishYear}}
+                    <p><strong>First Published:</strong> {{firstPublishYear}}</p>
+                    {{/firstPublishYear}}
+
+                    {{#publishDate}}
+                    <p><strong>Publication Information:</strong> {{publishDate}}</p>
+                    {{/publishDate}}
+
+                    {{#languages}}
+                    <p><strong>Languages:</strong> {{languages}}</p>
+                    {{/languages}}
+                </div>
+
+                <div class="description-section">
+                    <h3>About This Book</h3>
+                    <p>{{description}}</p>
+                </div>
+
+                <div class="subjects-section">
+                    <h3>Subjects</h3>
+                    {{#subjects.length}}
+                    <div class="subject-tags">
+                        {{#subjects}}
+                        <span class="subject-tag">{{.}}</span>
+                        {{/subjects}}
+                    </div>
+                    {{/subjects.length}}
+                    {{^subjects.length}}
+                    <p>Subject information is unavailable.</p>
+                    {{/subjects.length}}
+                </div>
+
+                <a
+                    class="open-library-link"
+                    href="{{recordUrl}}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    View Original Open Library Record ↗
+                </a>
+
+            </div>
+        </article>
+    </script>
+
+</body>
+</html>
+
